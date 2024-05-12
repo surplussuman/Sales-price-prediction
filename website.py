@@ -1,4 +1,4 @@
-'''import streamlit as st
+import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -54,8 +54,8 @@ def main():
 
 if __name__ == '__main__':
     main()
-'''
-import pandas as pd
+
+'''import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -101,3 +101,4 @@ age = 45
 salary = 22000
 result = predict_customer_buy(age, salary)
 print(result)
+'''
