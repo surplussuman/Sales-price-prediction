@@ -55,3 +55,49 @@ def main():
 if __name__ == '__main__':
     main()
 '''
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+# Load dataset
+dataset = pd.read_csv('DigitalAd_dataset.csv')
+
+# Separate features and target variable
+X = dataset.iloc[:, :-1].values
+Y = dataset.iloc[:, -1].values
+
+# Split dataset into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.25, random_state=0)
+
+# Feature Scaling
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+# Train the model
+model = LogisticRegression(random_state=0)
+model.fit(X_train, y_train)
+
+# Function for predicting
+def predict_customer_buy(age, salary):
+    new_cust = [[age, salary]]
+
+    # Predict probability for class 1 (buying)
+    probability = model.predict_proba(sc.transform(new_cust))[0][1]
+
+    # Manually choose a threshold
+    threshold = 0.5
+
+    # Compare probability to threshold
+    if probability > threshold:
+        return "Customer will Buy"
+    else:
+        return "Customer won't Buy"
+
+# Example usage
+age = 45
+salary = 22000
+result = predict_customer_buy(age, salary)
+print(result)
